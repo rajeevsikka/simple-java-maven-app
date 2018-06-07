@@ -5,10 +5,32 @@ pipeline {
             args '-v /root/.m2:/root/.m2' 
         }
     }
+    environment {
+        // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
+        IBM_CLOUD_DEVOPS_API_KEY = credentials('IBM_CLOUD_DEVOPS_API_KEY')
+        IBM_CLOUD_DEVOPS_ORG = 'sikkar@us.ibm.com'
+        IBM_CLOUD_DEVOPS_APP_NAME = 'simple-java-maven-app'
+        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '06a9039d-e19d-4d64-89e5-7cf58b6fc14c'
+    }
     stages {
-        stage('Build') { 
+        stage('Build') {
+            environment {
+                // get git commit from Jenkins
+                GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                GIT_BRANCH = 'master'
+                GIT_REPO = 'https://github.com/jenkins-docs/simple-java-maven-app/'
+            } 
             steps {
                 sh 'mvn -B -DskipTests clean package' 
+            }
+            // post build section to use "publishBuildRecord" method to publish build record
+            post {
+                success {
+                    publishBuildRecord gitBranch: "${GIT_BRANCH}", gitCommit: "${GIT_COMMIT}", gitRepo: "${GIT_REPO}", result:"SUCCESS"
+                }
+                failure {
+                    publishBuildRecord gitBranch: "${GIT_BRANCH}", gitCommit: "${GIT_COMMIT}", gitRepo: "${GIT_REPO}", result:"FAIL"
+                }
             }
         }
 	stage('Test') {
