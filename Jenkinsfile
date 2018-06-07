@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             environment {
                 // get git commit from Jenkins
-                GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                GIT_COMMIT = 'dummy commit' //sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 GIT_BRANCH = 'master'
                 GIT_REPO = 'https://github.com/jenkins-docs/simple-java-maven-app/'
             } 
