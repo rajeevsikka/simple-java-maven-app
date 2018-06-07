@@ -10,7 +10,7 @@ pipeline {
         IBM_CLOUD_DEVOPS_API_KEY = credentials('IBM_CLOUD_DEVOPS_API_KEY')
         IBM_CLOUD_DEVOPS_ORG = 'sikkar@us.ibm.com'
         IBM_CLOUD_DEVOPS_APP_NAME = 'simple-java-maven-app'
-        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'acc2088c-79c7-421f-8f90-1a35a44a4034'
+        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '91c65998-025d-4882-b877-a4404dd3ef10'
     }
     stages {
         stage('Build') {
