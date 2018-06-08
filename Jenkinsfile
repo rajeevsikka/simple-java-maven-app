@@ -40,7 +40,7 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                    publishTestResult type:'unittest', fileLocation: './maventest.json'
+                    publishTestResult type:'unittest', fileLocation: 'target/surefire-reports/*.xml'
                 }
             }
         }
