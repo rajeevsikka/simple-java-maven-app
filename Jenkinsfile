@@ -1,12 +1,9 @@
 pipeline {
-    //agent {
-    //    docker {
-    //        image 'maven:3-alpine' 
-    //        args '-v /root/.m2:/root/.m2' 
-    //    }
-    //}
     agent {
-        label env.DEFAULT_JENKINS_AGENT
+        docker {
+            image 'maven:3-alpine' 
+            args '-v /root/.m2:/root/.m2' 
+        }
     }
     environment {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
